@@ -7,7 +7,6 @@
     <nav>
       <RouterLink to="/" class="btn">Home</RouterLink>
       <RouterLink to="/about" class="btn">About</RouterLink>
-      <RouterLink to="/support" class="btn">Support</RouterLink>
       <RouterLink to="/download" class="btn btn-orange">Download</RouterLink>
     </nav>
   </header>
