@@ -1,0 +1,112 @@
+:root {
+  font-family: "Lato", sans-serif;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "GRAD" -20;
+
+  color-scheme: dark;
+  color: var(--text-color);
+  background-color: var(--background-1);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --background-1: #2c313e;
+  --background-2: #2c313e;
+  --background-3: #0f0f0f;
+
+  --text-color: rgba(255, 255, 255, 0.87);
+
+  --outline-1: #acafb4;
+
+  --cta-orange: #ff7a1a;
+  --cta-orange-2: #ff8c3a;
+  --cta-orange-3: #e66812;
+
+  --shadow-1: rgba(0, 0, 0, 0.45);
+  --shadow-2: rgba(255, 255, 255, 0.04);
+  --shadow-3: rgba(255, 122, 26, 0.349);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body, h1, h2, p {
+  margin: 0;
+}
+
+button, .btn {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em 1.2em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: var(--background-2);
+  font-weight: 400;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s;
+  display: flex;
+  place-items: center;
+  gap: 0.5em;
+
+  box-shadow:
+    0 2px 6px var(--shadow-1),
+    inset 0 1px 0 var(--shadow-2);
+}
+
+.btn-cta {
+  background-color: var(--background-1);
+}
+
+button:hover, .btn:hover {
+  border-color: var(--outline-1);
+}
+
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--outline-1);
+  outline-offset: 2px;
+}
+
+.btn-orange {
+  background-color: var(--cta-orange);
+  border-color: var(--cta-orange);
+  color: var(--background-3);
+  font-weight: 600;
+
+  box-shadow:
+    0 4px 14px var(--shadow-3);
+}
+
+.btn-orange:hover {
+  background-color: var(--cta-orange-2);
+  border-color: var(--cta-orange-2);
+  color: var(--background-3);
+}
+
+.btn-orange:active {
+  background-color: var(--cta-orange-3);
+  border-color: var(--cta-orange-3);
+}
+
+.logo {
+  -webkit-user-drag: none;
+  cursor: text;
+}
+
+.round {
+  border-radius: .5em;
+}
