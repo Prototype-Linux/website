@@ -47,7 +47,7 @@ const screenshots = [
     </p>
   </section>
 
-  <section class="screenshots round">
+  <section class="screenshots round" id="#screenshots">
     <h2>Screenshots</h2>
     <div class="screenshot-grid">
       <a
