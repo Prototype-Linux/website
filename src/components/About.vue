@@ -2,10 +2,12 @@
 import { Icon } from "@iconify/vue";
 
 const screenshots = [
-  { file: "desktop.avif", label: "Desktop", alt: "Prototype Linux desktop" },
-  { file: "menu.avif", label: "Application Menu", alt: "Application menu open" },
-  { file: "settings.avif", label: "Settings", alt: "System settings window" },
-  { file: "files.avif", label: "File Manager", alt: "Thunar file manager" },
+  { file: "Desktop.png", label: "Desktop", alt: "Prototype Linux desktop" },
+  { file: "ApplicationsMenu.png", label: "Application Menu", alt: "Application menu open" },
+  { file: "SettingsMenu.png", label: "Settings", alt: "System settings window" },
+  { file: "Customization.png", label: "Appearance", alt: "Customization options" },
+  { file: "PackageInstallerDeb.png", label: "Package Installer", alt: "GDebi Package Manager" },
+  { file: "FileManager.png", label: "File Manager", alt: "Thunar file manager" },
 ];
 </script>
 
