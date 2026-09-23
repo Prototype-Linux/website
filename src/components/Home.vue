@@ -133,7 +133,7 @@ p {
   text-align: left;
   font-size: 2.4rem;
   line-height: 1.2;
-  max-width: 25ch;
+  max-width: 20ch;
 }
 
 .hero p {
