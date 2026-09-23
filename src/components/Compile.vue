@@ -42,7 +42,7 @@ lb build</code></pre>
 
   <section class="source round">
     <h2>
-      <Icon icon="fa-brands:github" aria-hidden="true" />
+      <Icon icon="ic:round-code" aria-hidden="true" />
       Source Code
     </h2>
     <p>Curious how it's put together? Everything is open on GitHub.</p>
