@@ -8,6 +8,7 @@ const screenshots = [
   { file: "Customization.png", label: "Appearance", alt: "Customization options" },
   { file: "PackageInstallerDeb.png", label: "Package Installer", alt: "GDebi Package Manager" },
   { file: "FileManager.png", label: "File Manager", alt: "Thunar file manager" },
+  { file: "Fastfetch.png", label: "Fastfetch", alt: "Fastfetch utility output" },
 ];
 </script>
 
