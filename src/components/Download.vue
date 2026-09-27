@@ -5,13 +5,13 @@ import { Icon } from "@iconify/vue";
 const GITHUB_OWNER = "prototype-linux";
 const GITHUB_REPO = "distro";
 const WORKFLOW_FILE = "build.yml";
-const FILE_NAME = "Prototype-amd64.hybrid.iso";
 
 const releasesPageUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;
 
 const latestRelease = ref(null);
 const nightlyUrl = ref(null);
 const runId = ref(null);
+const commitId = ref(null);
 const loading = ref({ release: true, nightly: true });
 const error = ref({ release: false, nightly: false });
 
@@ -54,6 +54,7 @@ async function loadNightlyBuild() {
     const artifacts = artifact.artifacts?.[0];
     if (!artifacts) throw new Error("no artifacts found");
     runId.value = `${runs.run_number}`;
+    commitId.value = `${runs.head_sha.slice(0, 7)}`;
     nightlyUrl.value = `https://github.com/Prototype-Linux/distro/actions/runs/${runs.id}/artifacts/${artifacts.id}`;
   } catch {
     error.value.nightly = true;
@@ -144,7 +145,7 @@ onMounted(() => {
       <p v-else-if="error.nightly">No nightly build available right now.</p>
       <div v-else-if="nightlyUrl" class="cta-buttons">
         <a :href="nightlyUrl" class="btn btn-cta">
-          <Icon icon="ic:baseline-download" aria-hidden="true" />Download Nightly Build ({{ runId }})
+          <Icon icon="ic:baseline-download" aria-hidden="true" />Download Nightly Build #{{ runId }} ({{ commitId }})
         </a>
       </div>
     </div>
