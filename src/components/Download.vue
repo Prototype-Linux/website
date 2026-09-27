@@ -10,6 +10,7 @@ const releasesPageUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/relea
 
 const latestRelease = ref(null);
 const nightlyUrl = ref(null);
+const runId = ref(null);
 const loading = ref({ release: true, nightly: true });
 const error = ref({ release: false, nightly: false });
 
@@ -44,6 +45,7 @@ async function loadNightlyBuild() {
     const data = await res.json();
     const run = data.workflow_runs?.[0];
     if (!run) throw new Error("no runs found");
+    runId.value = `${run.id}`;
     nightlyUrl.value = `https://nightly.link/${GITHUB_OWNER}/${GITHUB_REPO}/actions/runs/${run.id}`;
   } catch {
     error.value.nightly = true;
@@ -78,50 +80,56 @@ onMounted(() => {
   </section>
 
   <section class="download-stable round">
-    <h2>
-      <Icon icon="ic:baseline-verified" aria-hidden="true" />
-      Stable Release
-    </h2>
-
-    <p v-if="loading.release">Loading latest release...</p>
-    <p v-else-if="error.release">
-      Could not load release info.
-      <a :href="releasesPageUrl">See releases on GitHub</a>.
-    </p>
-    <div v-else-if="latestRelease">
-      <p>
-        Version {{ latestRelease.tag_name }} — published
-        {{ formatDate(latestRelease.published_at) }}
+    <div class="left">
+      <h2>
+        <Icon icon="ic:baseline-verified" aria-hidden="true" />
+        Stable Release
+      </h2>
+    </div>
+    <div class="right">
+      <p v-if="loading.release">Loading latest release...</p>
+      <p v-else-if="error.release">
+        Could not load release info.
+        <a :href="releasesPageUrl">See releases on GitHub</a>.
       </p>
-      <div class="cta-buttons">
-        <a
-          v-for="asset in latestRelease.assets"
-          :key="asset.id"
-          :href="asset.browser_download_url"
-          class="btn btn-orange"
-        >
-          <Icon icon="ic:baseline-download" aria-hidden="true" />{{ asset.name }}
-        </a>
+      <div v-else-if="latestRelease">
+        <p>
+          Version {{ latestRelease.tag_name }} — published
+          {{ formatDate(latestRelease.published_at) }}
+        </p>
+        <div class="cta-buttons">
+          <a
+            v-for="asset in latestRelease.assets"
+            :key="asset.id"
+            :href="asset.browser_download_url"
+            class="btn btn-orange"
+          >
+            <Icon icon="ic:baseline-download" aria-hidden="true" />{{ asset.name }}
+          </a>
+        </div>
+        <p class="all-releases">
+          <a :href="releasesPageUrl">View all releases</a>
+        </p>
       </div>
-      <p class="all-releases">
-        <a :href="releasesPageUrl">View all releases</a>
-      </p>
     </div>
   </section>
 
   <section class="download-nightly round">
-    <h2>
-      <Icon icon="ic:baseline-bolt" aria-hidden="true" />
-      Nightly Build
-    </h2>
-    <p>Built automatically from the latest commit. May be unstable.</p>
-
-    <p v-if="loading.nightly">Loading nightly build...</p>
-    <p v-else-if="error.nightly">No nightly build available right now.</p>
-    <div v-else-if="nightlyUrl" class="cta-buttons">
-      <a :href="nightlyUrl" class="btn btn-cta">
-        <Icon icon="ic:baseline-download" aria-hidden="true" />Download Nightly Build
-      </a>
+    <div class="left">
+      <h2>
+        <Icon icon="ic:baseline-bolt" aria-hidden="true" />
+        Nightly Build
+      </h2>
+      <p>Built automatically from the latest commit. May be unstable.</p>
+    </div>
+    <div class="right">
+      <p v-if="loading.nightly">Loading nightly build...</p>
+      <p v-else-if="error.nightly">No nightly build available right now.</p>
+      <div v-else-if="nightlyUrl" class="cta-buttons">
+        <a :href="nightlyUrl" class="btn btn-cta">
+          <Icon icon="ic:baseline-download" aria-hidden="true" />Download Nightly Build ({{ runId }})
+        </a>
+      </div>
     </div>
   </section>
 
@@ -177,8 +185,11 @@ section {
 
 .download-stable,
 .download-nightly {
+  display: flex;
   background-color: #454b57;
   padding: 2em 2em;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .download-stable h2,
