@@ -39,15 +39,22 @@ async function loadLatestRelease() {
 
 async function loadNightlyBuild() {
   try {
-    const res = await fetch(
+    const runApi = await fetch(
       `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/runs?branch=main&status=success&per_page=1`
     );
-    if (!res.ok) throw new Error("workflow fetch failed");
-    const data = await res.json();
-    const run = data.workflow_runs?.[0];
-    if (!run) throw new Error("no runs found");
-    runId.value = `${run.id}`;
-    nightlyUrl.value = `https://nightly.link/${GITHUB_OWNER}/${GITHUB_REPO}/actions/runs/${run.id}/${FILE_NAME}`;
+    if (!runApi.ok) throw new Error("workflow fetch failed");
+    const run = await runApi.json();
+    const runs = run.workflow_runs?.[0];
+    if (!runs) throw new Error("no runs found");
+    const artifactApi = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/runs/${runs.id}/artifacts`
+    );
+    if (!artifactApi.ok) throw new Error("workflow fetch failed");
+    const artifact = await artifactApi.json();
+    const artifacts = artifact.artifacts?.[0];
+    if (!artifacts) throw new Error("no artifacts found");
+    runId.value = `${runs.run_number}`;
+    nightlyUrl.value = `https://github.com/Prototype-Linux/distro/actions/runs/${runs.id}/artifacts/${artifacts.id}`;
   } catch {
     error.value.nightly = true;
   } finally {
@@ -78,6 +85,15 @@ onMounted(() => {
       </a>
     </div>
     <img src="/prototype-logo.svg" class="logo" alt="Prototype Logo" />
+  </section>
+
+  <section class="more-info">
+    <h2>Not sure which to pick?</h2>
+    <p>
+      Stable releases are tested and recommended for daily use. Nightly
+      builds reflect the latest commit and are best for trying out new
+      features or helping test bug fixes.
+    </p>
   </section>
 
   <section class="download-stable round">
@@ -121,7 +137,7 @@ onMounted(() => {
         <Icon icon="ic:baseline-bolt" aria-hidden="true" />
         Nightly Build
       </h2>
-      <p>Built automatically from the latest commit. May be unstable.</p>
+      <p>Built automatically from the latest commit. May be unstable. You need to be logged in GitHub for the download to work.</p>
     </div>
     <div class="right">
       <p v-if="loading.nightly">Loading nightly build...</p>
@@ -132,15 +148,6 @@ onMounted(() => {
         </a>
       </div>
     </div>
-  </section>
-
-  <section class="more-info">
-    <h2>Not sure which to pick?</h2>
-    <p>
-      Stable releases are tested and recommended for daily use. Nightly
-      builds reflect the latest commit and are best for trying out new
-      features or helping test bug fixes.
-    </p>
   </section>
 </template>
 
@@ -199,7 +206,6 @@ section {
   font-weight: bold;
   display: flex;
   gap: 0.6em;
-  margin-bottom: 0.6em;
 }
 
 .download-stable h2 svg,
@@ -215,7 +221,6 @@ section {
 }
 
 .cta-buttons {
-  margin-top: 1em;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
