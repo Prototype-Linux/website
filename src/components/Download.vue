@@ -5,6 +5,7 @@ import { Icon } from "@iconify/vue";
 const GITHUB_OWNER = "prototype-linux";
 const GITHUB_REPO = "distro";
 const WORKFLOW_FILE = "build.yml";
+const FILE_NAME = "Prototype-amd64.hybrid.iso";
 
 const releasesPageUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;
 
@@ -46,7 +47,7 @@ async function loadNightlyBuild() {
     const run = data.workflow_runs?.[0];
     if (!run) throw new Error("no runs found");
     runId.value = `${run.id}`;
-    nightlyUrl.value = `https://nightly.link/${GITHUB_OWNER}/${GITHUB_REPO}/actions/runs/${run.id}`;
+    nightlyUrl.value = `https://nightly.link/${GITHUB_OWNER}/${GITHUB_REPO}/actions/runs/${run.id}/${FILE_NAME}`;
   } catch {
     error.value.nightly = true;
   } finally {
