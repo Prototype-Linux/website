@@ -96,6 +96,13 @@ import { Icon } from "@iconify/vue";
     <RouterLink to="/download" class="btn btn-orange">
       <Icon icon="ic:baseline-download" aria-hidden="true" />Download Now
     </RouterLink>
+    <br/>
+    <a href="https://alternativeto.net/software/prototype-linux/about/?utm_source=badge&utm_medium=referral" target="_blank">
+      <img src="https://alternativeto.net/static/badges/badge-wide-dark.svg"
+          alt="Prototype Linux | AlternativeTo"
+          width="406" height="77"
+          style="width: 406px; height: 77px;" />
+    </a>
   </section>
 </template>
 
@@ -104,12 +111,6 @@ section {
   margin: 3em 10em;
 }
 
-h1,
-h2,
-li,
-p {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
 
 .description,
 .benefits *,

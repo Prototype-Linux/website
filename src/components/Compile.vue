@@ -11,6 +11,13 @@ import { Icon } from "@iconify/vue";
         purpose. Things change fast and often, so instead of shipping something
         that'd go stale in a week, here's how to build it yourself.
       </p>
+      <br/> 
+      <a href="https://alternativeto.net/software/prototype-linux/about/?utm_source=badge&utm_medium=referral" target="_blank">
+        <img src="https://alternativeto.net/static/badges/badge-wide-dark.svg"
+            alt="Prototype Linux | AlternativeTo"
+            width="406" height="77"
+            style="width: 406px; height: 77px;" />
+      </a>
     </div>
     <img src="/prototype-logo.svg" class="logo" alt="Prototype Logo" />
   </section>
@@ -66,12 +73,6 @@ lb build</code></pre>
 <style scoped>
 section {
   margin: 3em 10em;
-}
-
-h1,
-h2,
-p {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .description,

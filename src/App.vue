@@ -34,6 +34,7 @@ header img {
 }
 
 header .left {
+  font-weight: bold;
   gap: 1em;
 }
 
